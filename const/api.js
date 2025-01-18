@@ -1,0 +1,1 @@
+export const GR_API_DOMAIN = "https://cxecixxpud.execute-api.ap-southeast-2.amazonaws.com"
