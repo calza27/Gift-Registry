@@ -17,5 +17,7 @@ export function setUser(user) {
 };
 
 export function getUser() {
-  return JSON.parse(Cookies.get("user"));
+  var userCookie = Cookies.get("user");
+  if (userCookie) return JSON.parse(userCookie);
+  return {}
 };

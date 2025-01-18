@@ -27,7 +27,8 @@ const Gift = () => {
                 const giftData = await giftReponse.json();
                 setGift(giftData);
             } catch (err) {
-                setError(err.message);
+                if (err.message) setError(err.message);
+                else setError(JSON.stringify(err));
             } finally {
                 setLoading(false);
             }

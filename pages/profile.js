@@ -21,7 +21,8 @@ export default function Profile() {
             const listData = await listResponse.json();
             setLists(listData);
         } catch (err) {
-            setError(err.message);
+            if (err.message) setError(err.message);
+            else setError(JSON.stringify(err));
         } finally {
             setLoading(false);
         }

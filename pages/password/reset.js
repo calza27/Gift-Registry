@@ -32,7 +32,7 @@ export default function Reset(){
 			onSuccess() {
 				router.push({
 					pathname: '/login',
-					query: { message: "Password usccessfully reset - please login to continue" }
+					query: { message: "Password successfully reset - please login to continue" }
 				}, "/login")
 			},
 			onFailure(err) {
@@ -46,6 +46,7 @@ export default function Reset(){
 		<div style={{
 			padding: "10px"
 		}}>
+			<div>Reset code sent to {email} - Please enter it below and enter a new password</div>
 			<Formik
 				initialValues={{
 					username: email,
