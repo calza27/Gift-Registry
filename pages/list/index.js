@@ -53,6 +53,10 @@ const List = () => {
         return window.location.origin + "/list?list_id=" + list.sharing_id;
     }
 
+    const canCopy = () => {
+        return navigator.clipboard && navigator.clipboard.writeText;
+    }
+
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
     if (!list) return <div>List not found</div>;
@@ -61,7 +65,7 @@ const List = () => {
             <div>
                 {userId == list.user_id && <div><button onClick={() => router.push('/list/gift/new?list_id=' + list.id)}>Add Gift</button></div>}
                 <div>
-                    Share Link: {shareLink()} <a style={{cursor: "pointer"}} onClick={() => navigator.clipboard.writeText(shareLink())}>Copy</a>
+                    Share Link: {shareLink()} { canCopy() && <a style={{cursor: "pointer"}} onClick={() => navigator.clipboard.writeText(shareLink())}>Copy</a> }
                 </div>
                 <div>
                     Gifts
