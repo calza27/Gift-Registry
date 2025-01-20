@@ -1,6 +1,6 @@
 import { GR_API_DOMAIN } from "../const/api"
 
-export async function getUser(token, userId) {
+export async function getUserDetails(token, userId) {
     if (!token) {
         return {status: 401, message: "Unauthorized" }
     }
@@ -13,7 +13,7 @@ export async function getUser(token, userId) {
     })
 }
 
-export async function updateUser(token, user) {
+export async function updateUserDetails(token, user) {
     if (!token) {
         return {status: 401, message: "Unauthorized" }
     }

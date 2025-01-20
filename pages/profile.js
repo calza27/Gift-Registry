@@ -1,5 +1,6 @@
-import { getToken, getUser } from "../hooks/cookies";
+import { getToken } from "../hooks/cookies";
 import ListObject from "../components/ListObject";
+import UserDetails from "../components/UserDetails";
 import { useState, useEffect } from "react";
 import { getLists } from "../hooks/list";
 
@@ -34,11 +35,7 @@ export default function Profile() {
     <div>
       <h1>Profile page</h1>
       <br/>
-      <div>
-        <span>
-          User: {JSON.stringify(getUser())}
-        </span>
-      </div>
+      {/* <UserDetails /> */}
       <div>
         { loading && <div>Loading... </div>}
         { error && <div>Error: {error}</div>}

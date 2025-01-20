@@ -16,8 +16,8 @@ export function setUser(user) {
   Cookies.set("user", JSON.stringify(user), { path: "/", expires: d }) 
 };
 
-export function getUser() {
+export function getUserId() {
   var userCookie = Cookies.get("user");
-  if (userCookie) return JSON.parse(userCookie);
-  return {}
+  if (userCookie) return userCookie['cognito:username'];
+  return null;
 };
