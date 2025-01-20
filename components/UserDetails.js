@@ -1,6 +1,6 @@
-import { getToken, getUserId } from "../hooks/cookies";
+import { getToken, getUserId } from "@/hooks/cookies";
 import { useState, useEffect } from "react";
-import { getUserDetails } from "../hooks/user";
+import { getUserDetails } from "@/hooks/user";
 
 export default function UserDetails({}) {
   const [ token, setToken ] = useState(getToken())

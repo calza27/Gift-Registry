@@ -1,12 +1,12 @@
 import { Formik } from "formik";
-import InputLayout from "../components/layouts/InputLayout";
-import Label from "../components/Label";
-import InputField from "../components/InputField";
-import InputHelperText from "../components/InputHelperText";
-import AuthLinkText from "../components/AuthLinkText";
-import SubmitButton from "../components/SubmitButton";
-import useValidationSchema from "../hooks/useValidationSchema";
-import { COGNITO_APP_CLIENT_ID, COGNITO_USER_POOL_ID } from "../const/cognito";
+import InputLayout from "@/components/layouts/InputLayout";
+import Label from "@/components/Label";
+import InputField from "@/components/InputField";
+import InputHelperText from "@/components/InputHelperText";
+import AuthLinkText from "@/components/AuthLinkText";
+import SubmitButton from "@/components/SubmitButton";
+import useValidationSchema from "@/hooks/useValidationSchema";
+import { COGNITO_APP_CLIENT_ID, COGNITO_USER_POOL_ID } from "@/const/cognito";
 import { CognitoUserAttribute, CognitoUserPool } from 'amazon-cognito-identity-js';
 import { useRouter } from "next/router";
 
@@ -44,7 +44,6 @@ export default function Register() {
 					alert(err.message || JSON.stringify(err));
 					return;
 				}
-				console.log(result)
 				router.push({
 					pathname: '/confirm',
 					query: { email: values?.email }

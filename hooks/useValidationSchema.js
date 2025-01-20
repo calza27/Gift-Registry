@@ -30,6 +30,16 @@ export default function useValidationSchema(){
         .min(8, 'Password needs to be at least 8 characters long.'),
       confirm_password: yup.string().required('Please confirm your password.')
         .oneOf([yup.ref('password')], 'Passwords do not match')
-    })
+    }),
+
+    listSchema: yup.object().shape({
+      list_name: yup.string().required('Please enter a list name.')
+    }),
+
+    giftSchema: yup.object().shape({
+      title: yup.string().required('Please enter a gift title.'),
+      place_of_purchase: yup.string().required('Please enter a place of purchase.'),
+      price: yup.number().required('Please enter a price.'),
+    }),
   }
 }

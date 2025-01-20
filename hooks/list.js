@@ -1,4 +1,4 @@
-import { GR_API_DOMAIN } from "../const/api"
+import { GR_API_DOMAIN } from "@/const/api"
 
 export async function createList(token, list) {
     if (!token) {
@@ -54,7 +54,7 @@ export async function updateListById(token, list) {
     if (!token) {
         return {status: 401, message: "Unauthorized"}
     }
-    return await fetch(`${GR_API_DOMAIN}/api/list/${list.Id}`, {
+    return await fetch(`${GR_API_DOMAIN}/api/list/${list.id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",

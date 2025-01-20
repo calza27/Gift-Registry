@@ -1,10 +1,13 @@
-import { getToken } from "../hooks/cookies";
-import ListObject from "../components/ListObject";
-import UserDetails from "../components/UserDetails";
+import { getToken, getUser } from "@/hooks/cookies";
+import ListObject from "@/components/ListObject";
+import UserDetails from "@/components/UserDetails";
 import { useState, useEffect } from "react";
-import { getLists } from "../hooks/list";
+import { getLists } from "@/hooks/list";
+import PageLayout from "@/components/layouts/PageLayout"
+import { useRouter } from "next/router";
 
 export default function Profile() {
+  const router = useRouter();
   const [ token, setToken ] = useState(getToken())
   const [ lists, setLists ] = useState([])
   const [ loading, setLoading ] = useState(true);
@@ -32,10 +35,11 @@ export default function Profile() {
   }, [token]);
 
   return (
-    <div>
-      <h1>Profile page</h1>
-      <br/>
+    <PageLayout title="Profile page" requireAuth={true}>
       {/* <UserDetails /> */}
+      <div>
+          <button onClick={() => router.push('/list/new')}>New List</button>
+      </div>
       <div>
         { loading && <div>Loading... </div>}
         { error && <div>Error: {error}</div>}
@@ -43,13 +47,11 @@ export default function Profile() {
         { lists && lists.length > 0 ?
             <ul>
                 {lists.map((list, index) => {
-                  return (
-                    <ListObject giftList={list} key={index} />
-                  )
+                  return <ListObject giftList={list} key={index} />
                 })}
             </ul> : <p>No lists created yet</p>
         }
       </div>
-    </div>
+    </PageLayout>
   )
 }

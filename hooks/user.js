@@ -1,4 +1,4 @@
-import { GR_API_DOMAIN } from "../const/api"
+import { GR_API_DOMAIN } from "@/const/api"
 
 export async function getUserDetails(token, userId) {
     if (!token) {

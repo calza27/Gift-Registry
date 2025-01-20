@@ -1,4 +1,4 @@
-import { GR_API_DOMAIN } from "../const/api"
+import { GR_API_DOMAIN } from "@/const/api"
 
 export async function createGift(token, listId, gift) {
     if (!token) {
@@ -52,11 +52,11 @@ export async function deleteGiftById(token, listId, giftId) {
     return response
 }
 
-export async function updateListById(token, listId, gift) {
+export async function updateGiftById(token, listId, gift) {
     if (!token) {
         return {status: 401, message: "Unauthorized" }
     }
-    const response = await fetch(`${GR_API_DOMAIN}/api/list/${listId}/gift/${gift.Id}`, {
+    const response = await fetch(`${GR_API_DOMAIN}/api/list/${listId}/gift/${gift.id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",

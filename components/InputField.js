@@ -4,7 +4,8 @@ export default function InputField({
   name,
   onChange,
   onBlur,
-  placeholder
+  placeholder,
+  value
 }) {
   return (
     <input
@@ -13,6 +14,7 @@ export default function InputField({
       onChange={onChange}
       onBlur={onBlur}
       placeholder={placeholder}
+      value={value}
     />
   )
 }

@@ -1,14 +1,14 @@
 import { Formik } from "formik";
-import InputLayout from "../../components/layouts/InputLayout";
-import Label from "../../components/Label";
-import InputField from "../../components/InputField";
-import InputHelperText from "../../components/InputHelperText";
-import SubmitButton from "../../components/SubmitButton";
-import useValidationSchema from "../../hooks/useValidationSchema";
+import InputLayout from "@/components/layouts/InputLayout";
+import Label from "@/components/Label";
+import InputField from "@/components/InputField";
+import InputHelperText from "@/components/InputHelperText";
+import SubmitButton from "@/components/SubmitButton";
+import useValidationSchema from "@/hooks/useValidationSchema";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js';
-import { COGNITO_APP_CLIENT_ID, COGNITO_USER_POOL_ID } from "../../const/cognito";
+import { COGNITO_APP_CLIENT_ID, COGNITO_USER_POOL_ID } from "@/const/cognito";
 
 export default function Reset(){
 	const router = useRouter()
