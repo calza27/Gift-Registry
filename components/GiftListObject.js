@@ -1,18 +1,9 @@
 import priceDollars from "@/utils/price";
 import GiftImage from "./GiftImage";
 import Link from "next/link";
+import getUrlForGift from "@/utils/url";
 
 export default function GiftListObject({ gift, key }) {
-
-  const giftUrl = () => {
-    if (!gift.url) {
-      return null;
-    }
-    if (gift.url.startsWith("http://") || gift.url.startsWith("https://")) {
-      return gift.url;
-    }
-    return "http://" + gift.url;
-  }
 
   return (
     <div style={{
@@ -50,7 +41,7 @@ export default function GiftListObject({ gift, key }) {
       { gift.url && <div style={{flexGrow: "1"}}>
         <Link
           passHref
-          href={giftUrl()}
+          href={getUrlForGift(gift)}
           target="_blank"
           style={{
             alignItems: "center",

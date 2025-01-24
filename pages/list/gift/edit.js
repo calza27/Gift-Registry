@@ -7,6 +7,8 @@ import { getToken } from "@/hooks/cookies";
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from "next/router";
 import { useEffect, useState } from 'react';
+import { deleteGiftById } from "@/hooks/gift";
+import Button from "@/components/Button";
 
 const EditGift = () => {
     const searchParams = useSearchParams()
@@ -43,6 +45,18 @@ const EditGift = () => {
         fetchGift();
     }, [list_id, gift_id]);
     
+    const removeGift = async () => {
+        try {
+            const reponse = await deleteGiftById(getToken(), gift.list_id, gift.id)
+            if (!reponse.ok) {
+                throw new Error("Failed to delete gift");
+            }
+            router.push('/list?list_id=' + list_id);
+        } catch (err) {
+            alert(err);
+        }
+    }
+
     return (
         <PageLayout title="Edit Gift" requireAuth={true}>
             { loading && <div>Loading...</div> }
@@ -55,6 +69,9 @@ const EditGift = () => {
                 marginLeft: "auto",
                 marginRight: "auto",
             }}>
+                <div style={{textAlign: "right"}}>
+                    <Button onClick={removeGift}>Remove Gift</Button>
+                </div>
                 <GiftForm listId={list_id} giftData={gift} successAction={redirect}/>
             </div>}
         </PageLayout>

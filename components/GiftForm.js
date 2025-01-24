@@ -5,11 +5,13 @@ import { createGift, updateGiftById } from "@/hooks/gift";
 import { useRouter } from "next/router";
 import ImageUpload from "./ImageUpload";
 import InputField from "./InputField";
+import TextArea from "./TextArea";
 import InputHelperText from "./InputHelperText";
 import InputLayout from "./layouts/InputLayout";
 import Label from "./Label";
 import SubmitButton from "./SubmitButton";
 import useValidationSchema from "@/hooks/useValidationSchema";
+import { getImageUrl } from "@/hooks/image";
 
 export default function GiftForm({ listId, giftData, successAction }) {
     const router = useRouter();
@@ -108,8 +110,8 @@ export default function GiftForm({ listId, giftData, successAction }) {
                         </InputLayout>
                         <InputLayout>
                             <Label>Description</Label>
-                            <textarea
-                                name="title"
+                            <TextArea
+                                name="description"
                                 placeholder="Description"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -153,11 +155,11 @@ export default function GiftForm({ listId, giftData, successAction }) {
                             />
                             <InputHelperText isError>{errors?.price}</InputHelperText>
                         </InputLayout>
+                        <ImageUpload existingFile={existingImage} fileNameSetter={setNewImageFileName} pendingSetter={setImagePending} />
                         <SubmitButton isSubmitting={imagePending || isSubmitting} />
                     </form>
                 )}
             </Formik>
-            <ImageUpload existingFile={existingImage} fileNameSetter={setNewImageFileName} pendingSetter={setImagePending} />
             { error && <div> Error: {error}</div> }
         </div>
     );

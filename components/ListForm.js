@@ -104,7 +104,7 @@ export default function ListForm({ listData, successAction }) {
                             <InputHelperText isError>{errors?.list_name}</InputHelperText>
                         </InputLayout>
                         <ImageUpload existingFile={existingImage} fileNameSetter={setNewImageFileName} pendingSetter={setImagePending} />
-                        <SubmitButton isSubmitting={imagePending || isSubmitting} />
+                        <SubmitButton disabled={imagePending} isSubmitting={isSubmitting} />
                     </form>
                 )}
             </Formik>

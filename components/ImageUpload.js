@@ -85,6 +85,7 @@ export default function ImageUpload({ existingFile, fileNameSetter, pendingSette
                     padding: '20px',
                     height: "auto",
                     width: "100px",
+                    border: "1px dashed black",
                 }}>No image selected</div>
                 }
             </div>

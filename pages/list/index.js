@@ -139,8 +139,9 @@ const List = () => {
                         <h1>{list.list_name}</h1>
                         <p>{list.description}</p>
                     </div>
-                    { list.user_id == userId && <div style={{flexGrow: "1" }}> 
+                    { list.user_id == userId && <div style={{flexGrow: "1", texxtAlign: "right" }}> 
                         <Button onClick={() => router.push('/list/gift/new?list_id=' + list.id)}>Add Gift</Button>
+                        <br/>
                         <Button onClick={() => router.push('/list/edit?list_id=' + list.id)}>Edit List</Button>
                     </div> }
                 </div>

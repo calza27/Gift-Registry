@@ -14,7 +14,15 @@ const NewGift = () => {
     }
     return (
         <PageLayout title="Add Gift" requireAuth={true}>
-            <GiftForm listId={list_id} successAction={redirect}/>
+            <div style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "50%",
+                marginLeft: "auto",
+                marginRight: "auto",
+            }}>
+                <GiftForm listId={list_id} successAction={redirect}/>
+            </div>
         </PageLayout>
     );
 };
