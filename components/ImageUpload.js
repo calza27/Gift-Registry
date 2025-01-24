@@ -1,15 +1,16 @@
 import { getToken } from "@/hooks/cookies";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { uploadImage } from "@/hooks/image";
 import Image from 'next/image'
 import InputLayout from "./layouts/InputLayout";
 import Label from "./Label";
+import Button from "./Button";
 
-export default function ImageUpload({ fileNameSetter, pendingSetter }) {
+export default function ImageUpload({ existingFile, fileNameSetter, pendingSetter }) {
     const [ token, setToken ] = useState(getToken())
     const [ error, setError ] = useState(null);
     const [ file, setFile ] = useState();
-    const [ filePreview, setFilePreview ] = useState();
+    const [ filePreview, setFilePreview ] = useState(existingFile);
     const [ showUploadButton, setShowUploadButton ] = useState(false);
     const [ success, setSuccess ] = useState(false);
 
@@ -64,19 +65,36 @@ export default function ImageUpload({ fileNameSetter, pendingSetter }) {
             pendingSetter(false);
         }
     }
+
+    useEffect(() => {
+        setFilePreview(existingFile);
+    }, [existingFile]);
  
     return (
         <InputLayout>
             <Label>Set Image</Label>
-            <input type="file" onChange={handleChange} />
-            { filePreview && <Image
-                src={filePreview}
-                width={0}
-                height={0}
-                style={{ width: '100px', height: 'auto' }}
-                alt="preview"
-            />}
-            { showUploadButton && <button onClick={upload}>Upload</button> }
+            <div>
+                { filePreview ? <Image
+                    src={filePreview}
+                    width={0}
+                    height={0}
+                    style={{ width: '100px', height: 'auto', border: "1px dashed black"}}
+                    alt="preview"
+                /> : <div style={{
+                    textAlign: 'center',
+                    padding: '20px',
+                    height: "auto",
+                    width: "100px",
+                }}>No image selected</div>
+                }
+            </div>
+            <input style={{
+                paddingTop: "0.5rem",
+            }}
+            type="file"
+            onChange={handleChange}
+            />
+            { showUploadButton && <Button onClick={upload} type="button">Upload</Button> }
             { error && <div>Error: {error}</div> }
             { success && <div>Image successfully uploaded</div>}
         </InputLayout>

@@ -48,7 +48,15 @@ const EditGift = () => {
             { loading && <div>Loading...</div> }
             { error && <div>{error}</div> }
             { !loading && !gift && <div>Gift not found</div> }
-            { !loading && gift && <GiftForm listId={list_id} giftData={gift} successAction={redirect}/> }
+            { !loading && gift && <div style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "50%",
+                marginLeft: "auto",
+                marginRight: "auto",
+            }}>
+                <GiftForm listId={list_id} giftData={gift} successAction={redirect}/>
+            </div>}
         </PageLayout>
     );
 };

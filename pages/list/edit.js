@@ -7,6 +7,8 @@ import { getListById } from "@/hooks/list";
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from "next/router";
 import { useEffect, useState } from 'react';
+import { deleteListById } from "@/hooks/list";
+import Button from "@/components/Button";
 
 const EditList = () => {
     const searchParams = useSearchParams()
@@ -18,6 +20,18 @@ const EditList = () => {
     const [loading, setLoading] = useState(true);
     const [list, setList ] = useState(null);
     const [error, setError ] = useState(null);
+
+    const removeList = async () => {
+        try {
+          const reponse = await deleteListById(getToken(), list.id)
+          if (!reponse.ok) {
+            throw new Error('Failed to delete list');
+          }
+          router.push('/profile')
+        } catch (err) {
+          alert(err);
+        }
+    }
 
     useEffect(() => {
         if (!list_id) return;
@@ -47,7 +61,18 @@ const EditList = () => {
             { loading && <div>Loading...</div> }
             { error && <div>{error}</div> }
             { !loading && !list && <div>List not found</div> }
-            { !loading && list && <ListForm listData={list} successAction={redirect}/> }
+            { !loading && list && <div style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "50%",
+                marginLeft: "auto",
+                marginRight: "auto",
+            }}>
+                <div style={{textAlign: "right"}}>
+                    <Button onClick={removeList}>Remove List</Button>
+                </div>
+                <ListForm listData={list} successAction={redirect}/>
+            </div>}
         </PageLayout>
     );
 };

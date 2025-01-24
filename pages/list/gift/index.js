@@ -6,6 +6,7 @@ import { getGiftById } from "@/hooks/gift";
 import priceDollars from "@/utils/price";
 import PageLayout from "@/components/layouts/PageLayout"
 import Link from "next/link"
+import deleteGiftById from "@/hooks/gift";
 
 const Gift = () => {
     const searchParams = useSearchParams()
@@ -37,6 +38,18 @@ const Gift = () => {
         };
         fetchGift();
     }, [list_id, gift_id]);
+
+    const removeGift = async () => {
+        try {
+            const reponse = await deleteGiftById(getToken(), gift.list_id, gift.id)
+            if (!reponse.ok) {
+                throw new Error("Failed to delete gift");
+            }
+            router.push('/list/gift?list_id=' + list_id);
+        } catch (err) {
+            alert(err);
+        }
+    }
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;

@@ -1,8 +1,10 @@
 import Cookies from 'js-cookie'
 
+const cookieTimeout = 1000 * 60 * 60 * 24;
+
 export function setToken(token) {
   let d = new Date();
-  d.setTime(d.getTime() + (1000 * 60 * 60 * 24));
+  d.setTime(d.getTime() + cookieTimeout);
   Cookies.set("token", token, { path: "/", expires: d }) 
 };
 
@@ -17,7 +19,7 @@ export function clearToken() {
 
 export function setUser(user) {
   let d = new Date();
-  d.setTime(d.getTime() + (60 * 60 * 24));
+  d.setTime(d.getTime() + cookieTimeout);
   Cookies.set("user", JSON.stringify(user), { path: "/", expires: d }) 
 };
 

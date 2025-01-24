@@ -11,7 +11,15 @@ const NewList = () => {
     }
     return (
         <PageLayout title="New List" requireAuth={true}>
-            <ListForm successAction={redirect}/>
+            <div style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "50%",
+                marginLeft: "auto",
+                marginRight: "auto",
+            }}>
+                <ListForm successAction={redirect}/>
+            </div>
         </PageLayout>
     );
 };

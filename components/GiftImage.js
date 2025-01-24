@@ -39,8 +39,8 @@ const GiftImage = ({ entity, alt }) => {
         alt={alt}
     />
     )
-    if (loading) return <div></div>;
-    if (!imageUrl) return;
+    if (loading) return <div style={{ width: "100px", height: "100px" }}></div>;
+    if (!imageUrl) return <div style={{ width: "100px", height: "100px" }}></div>;
     return (
     <Image
         src={imageUrl}

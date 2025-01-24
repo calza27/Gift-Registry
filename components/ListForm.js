@@ -1,6 +1,6 @@
 import { Formik } from "formik";
 import { getToken, getUserId } from "@/hooks/cookies";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createList, updateListById } from "@/hooks/list";
 import { useRouter } from "next/router";
 import ImageUpload from "./ImageUpload";
@@ -10,6 +10,7 @@ import InputLayout from "./layouts/InputLayout";
 import Label from "./Label";
 import SubmitButton from "./SubmitButton";
 import useValidationSchema from "@/hooks/useValidationSchema";
+import { getImageUrl } from "@/hooks/image";
 
 export default function ListForm({ listData, successAction }) {
     const router = useRouter();
@@ -19,6 +20,26 @@ export default function ListForm({ listData, successAction }) {
     const [ error, setError ] = useState(null);
     const [ newImageFileName, setNewImageFileName ] = useState(null);
     const [ imagePending, setImagePending ] = useState(false);
+    const [ existingImage, setExistingImage ] = useState(null);
+
+    useEffect(() => {
+        if (!listData?.image_file_name) return;
+        const fetchImageUrl = async () => {
+            try {
+                setError(null);
+                const response = await getImageUrl(token, listData.image_file_name)
+                if (!response.ok) {
+                    throw new Error('Failed to fetch image url for ' + listData.image_file_name);
+                }
+                const data = await response.text();
+                console.log(data);
+                setExistingImage(data);
+            } catch (err) {
+                setError(err.message);
+            }
+        };
+        fetchImageUrl();
+    }, [listData]);
 
     async function submit(values, { setSubmitting }) {
         try {
@@ -82,11 +103,11 @@ export default function ListForm({ listData, successAction }) {
                             />
                             <InputHelperText isError>{errors?.list_name}</InputHelperText>
                         </InputLayout>
+                        <ImageUpload existingFile={existingImage} fileNameSetter={setNewImageFileName} pendingSetter={setImagePending} />
                         <SubmitButton isSubmitting={imagePending || isSubmitting} />
                     </form>
                 )}
             </Formik>
-            <ImageUpload fileNameSetter={setNewImageFileName} pendingSetter={setImagePending} />
             { error && <div> Error: {error}</div> }
         </div>
     );

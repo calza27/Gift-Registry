@@ -1,6 +1,5 @@
-
-import { Form } from 'formik';
 import Image from 'next/image';
+import InputField from './InputField';
 
 export default function SearchField({
   type,
@@ -23,7 +22,7 @@ export default function SearchField({
       width: "300px",
       margin: "0 auto"
     }}>
-      <input
+      <InputField
         type={type}
         name={name}
         onChange={onChange}
@@ -31,15 +30,6 @@ export default function SearchField({
         placeholder={placeholder}
         value={value}
         onKeyPress={handleKeyPress}
-        style={{
-          width: "100%",
-          borderColor: "#d2d2d2",
-          borderWidth: "1px",
-          borderRadius: "0.25rem",
-          padding: "0.5rem 0.75rem",
-          backgroundColor: "white",
-          lineHeight: "1.5"
-        }}
       />
       <a
         onClick={searchAction}

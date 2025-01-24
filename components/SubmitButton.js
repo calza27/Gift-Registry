@@ -1,13 +1,15 @@
 
+import Button from './Button';
+
 export default function SubmitButton({ isSubmitting = false }) {
   return (
-    <button
+    <Button
       type="submit"
       disabled={isSubmitting}
       style={{
         marginTop: "10px"
       }}>
-      {isSubmitting ? 'Submitting' : 'Submit'}
-    </button>
+      {isSubmitting ? 'Saving...' : 'Save'}
+    </Button>
   )
 }

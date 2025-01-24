@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import SearchField from "@/components/SearchField"
 import Link from "next/link";
 import Image from "next/image";
+import Button from "@/components/Button";
 
 export default function PageLayout({
   title,
@@ -105,11 +106,12 @@ export default function PageLayout({
             bottom: "10px"
           }}>
             { token && <div>
-              <button onClick={() => logout()} style={{marginRight: "5px"}}>Logout</button>
+              <p style={{marginRigt: "5px"}}>Hello {userEmail}!</p>
+              <Button onClick={() => logout()} style={{marginRight: "5px"}}>Logout</Button>
             </div> }
             { !token && <div>
-              <button onClick={() => router.push('/login')} style={{marginRight: "5px"}}>Login</button>
-              <button onClick={() => router.push('/register')} style={{marginRight: "5px"}}>Register</button>
+              <Button onClick={() => router.push('/login')} style={{marginRight: "5px"}}>Login</Button>
+              <Button onClick={() => router.push('/register')} style={{marginRight: "5px"}}>Register</Button>
             </div> }
           </div>
       </div>
@@ -122,6 +124,7 @@ export default function PageLayout({
         overflowY: "auto",
         marginLeft: "auto",
         marginRight: "auto",
+        paddingTop: "3rem",
       }}>
         {children}
       </div>

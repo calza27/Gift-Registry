@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { getLists } from "@/hooks/list";
 import PageLayout from "@/components/layouts/PageLayout"
 import { useRouter } from "next/router";
+import Button from "@/components/Button";
 
 export default function Profile() {
   const router = useRouter();
@@ -36,21 +37,52 @@ export default function Profile() {
 
   return (
     <PageLayout title="Profile" requireAuth={true} activeNavigationPage={"profile"}>
-      {/* <UserDetails /> */}
-      <div>
-          <button onClick={() => router.push('/list/new')}>New List</button>
-      </div>
-      <div>
-        { loading && <div>Loading... </div>}
-        { error && <div>Error: {error}</div>}
-        { !loading && !error && <span>Gift Lists</span>}
-        { lists && lists.length > 0 ?
+      <div style={{
+        display: "flex",
+        flexDirection: "column",
+        width: "50%",
+        marginLeft: "auto",
+        marginRight: "auto",
+      }}>
+        {/* <UserDetails /> */}
+        <div style={{
+            display: "flex",
+            flexDirection: "row",
+        }}>
+          <div style={{flexGrow: "10" }}>
+            <h1>My Lists</h1>
+          </div>
+          <div style={{flexGrow: "1" }}> 
+            <Button onClick={() => router.push('/list/new')}>New List</Button>
+          </div>
+        </div>
+        <div>
+          { loading && <div>Loading... </div>}
+          { error && <div>Error: {error}</div>}
+          { lists && lists.length > 0 ?
             <ul>
-                {lists.map((list, index) => {
-                  return <ListObject giftList={list} key={index} />
-                })}
-            </ul> : <p>No lists created yet</p>
-        }
+              {lists.map((list, index) => {
+                return <ListObject giftList={list} key={index} />
+              })}
+              <div style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                padding: "0.5rem",
+                margin: "0.5rem",
+              }}>
+                <div style={{
+                  flexGrow: "0.2",
+                  marginLeft: "auto",
+                  marginRight: "auto",
+                }}><Button onClick={() => router.push('/list/new')}>Add New List</Button></div>
+              </div>
+            </ul> : <div>
+                <p>No lists created yet!</p>
+                <Button onClick={() => router.push('/list/new')}>Add A List</Button>
+            </div>
+          }
+        </div>
       </div>
     </PageLayout>
   )

@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { getImageUrl } from "@/hooks/image";
-import { deleteListById } from "@/hooks/list";
 import { getToken } from "@/hooks/cookies";
 import GiftImage from "./GiftImage";
 import Link from "next/link"
@@ -24,31 +23,33 @@ export default function ListObject({ giftList, key }) {
     fetchImageUrl();
   }, [giftList]);
 
-  const removeList = async () => {
-    try {
-      const reponse = await deleteListById(getToken(), giftList.id)
-      if (!reponse.ok) {
-        throw new Error('Failed to delete list');
-      }
-      window.location.reload();
-    } catch (err) {
-      alert(err);
-    }
-  }
-
   return (
-    <div>
-      <Link href={`/list?list_id=${giftList.id}`} key={key} passHref>
-        <div>
+    <Link href={`/list?list_id=${giftList.id}`} key={key} passHref>
+      <div style={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        padding: "0.5rem",
+        borderBottom: "1px solid #D2D2D2",
+        margin: "0.5rem",
+      }}>
+        <div style={{
+          flexGrow: "0.2",
+        }}>
           <GiftImage entity={giftList} alt={giftList.name} />
-          <h3>{giftList.list_name}</h3>
-          <p>{giftList.created_at}</p>
         </div>
-      </Link>
-      <div>
-        <Link href={`/list/edit?list_id=${giftList.id}`} passHref>Edit</Link>&nbsp;&nbsp;&nbsp;
-        <a onClick={removeList} style={{cursor: "pointer"}}>Remove</a>
+        <div style={{
+          flexGrow: "10",
+          marginLeft: "1rem",
+        }}>
+            <div style={{
+              display: "flex",
+              flexDirection: "column",
+            }}>
+              <div style={{color: "black", fontWeight: "bold"}}>{giftList.list_name}</div>
+            </div>
+        </div>
       </div>
-    </div>
+    </Link>
   )
 }

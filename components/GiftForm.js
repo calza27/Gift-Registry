@@ -1,6 +1,6 @@
 import { Formik } from "formik";
-import { getToken, getUserId } from "@/hooks/cookies";
-import { useState } from "react";
+import { getToken } from "@/hooks/cookies";
+import { useEffect, useState } from "react";
 import { createGift, updateGiftById } from "@/hooks/gift";
 import { useRouter } from "next/router";
 import ImageUpload from "./ImageUpload";
@@ -18,6 +18,26 @@ export default function GiftForm({ listId, giftData, successAction }) {
     const [ error, setError ] = useState(null);
     const [ newImageFileName, setNewImageFileName ] = useState(null);
     const [ imagePending, setImagePending ] = useState(false);
+    const [ existingImage, setExistingImage ] = useState(null);
+
+    useEffect(() => {
+        if (!giftData?.image_file_name) return;
+        const fetchImageUrl = async () => {
+            try {
+                setError(null);
+                const response = await getImageUrl(token, giftData.image_file_name)
+                if (!response.ok) {
+                    throw new Error('Failed to fetch image url for ' + giftData.image_file_name);
+                }
+                const data = await response.text();
+                console.log(data);
+                setExistingImage(data);
+            } catch (err) {
+                setError(err.message);
+            }
+        };
+        fetchImageUrl();
+    }, [giftData]);
 
     async function submit(values, { setSubmitting }) {
         try {
@@ -137,7 +157,7 @@ export default function GiftForm({ listId, giftData, successAction }) {
                     </form>
                 )}
             </Formik>
-            <ImageUpload fileNameSetter={setNewImageFileName} pendingSetter={setImagePending} />
+            <ImageUpload existingFile={existingImage} fileNameSetter={setNewImageFileName} pendingSetter={setImagePending} />
             { error && <div> Error: {error}</div> }
         </div>
     );
