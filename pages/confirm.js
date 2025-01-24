@@ -41,6 +41,9 @@ export default function Confirm(){
 
 	return (
 		<AuthLayout>
+			<div>
+				<h1>Confirm 2FA Code</h1>
+			</div>
 			<Formik
 				initialValues={{
 					username: email,

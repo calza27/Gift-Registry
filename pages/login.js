@@ -57,6 +57,9 @@ export default function Login() {
 
   return (
     <AuthLayout>
+      <div>
+        <h1>Surprise.me Login</h1>
+      </div>
       { message && <div>{message}</div> }
       <Formik
         initialValues={{

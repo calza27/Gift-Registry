@@ -46,6 +46,9 @@ export default function ResetCode(){
 
 	return (
 		<AuthLayout>
+			<div>
+				<h1>Surprise.me Password Reset</h1>
+			</div>
 			<Formik
 				initialValues={{
 					email: ""

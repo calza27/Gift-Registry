@@ -55,6 +55,9 @@ export default function Register() {
 
 	return (
 		<AuthLayout>
+			<div>
+				<h1>Surprise.me Registration</h1>
+			</div>
 			<Formik
 				initialValues={{
 					email: "",
