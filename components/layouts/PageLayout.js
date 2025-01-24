@@ -28,7 +28,7 @@ export default function PageLayout({
       }, "/login")
     }
     reAuth()
-  } , [token])
+  } , [token, requireAuth, router])
 
   const logout = () => {
     clearToken()

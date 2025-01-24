@@ -39,7 +39,7 @@ export default function ListForm({ listData, successAction }) {
             }
         };
         fetchImageUrl();
-    }, [listData]);
+    }, [listData, token]);
 
     async function submit(values, { setSubmitting }) {
         try {

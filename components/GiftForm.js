@@ -39,7 +39,7 @@ export default function GiftForm({ listId, giftData, successAction }) {
             }
         };
         fetchImageUrl();
-    }, [giftData]);
+    }, [giftData, token]);
 
     async function submit(values, { setSubmitting }) {
         try {

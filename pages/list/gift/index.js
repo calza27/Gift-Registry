@@ -42,6 +42,10 @@ const Gift = () => {
                 setLoading(false);
             }
         };
+        fetchGift();
+    }, [list_id, gift_id]);
+
+    useEffect(() => {
         const checkCanEdit = async() => {
             try {
                 setCanEdit(false)
@@ -58,9 +62,8 @@ const Gift = () => {
                 setCanEdit(false);
             }
         }
-        fetchGift();
         checkCanEdit();
-    }, [list_id, gift_id]);
+    }, [list_id, userId]);
 
     const editGift = async () => {
         router.push('/list/gift/edit?list_id=' + list_id + '&gift_id=' + gift_id);
