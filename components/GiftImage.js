@@ -32,7 +32,7 @@ const GiftImage = ({ entity, alt }) => {
 
     if (error) return (
     <Image
-        src="/brk.png"
+        src={"/brk.png"}
         width={0}
         height={0}
         style={{ width: '100px', height: 'auto' }}

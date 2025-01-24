@@ -47,7 +47,7 @@ export default function ListObject({ giftList, key }) {
       </Link>
       <div>
         <Link href={`/list/edit?list_id=${giftList.id}`} passHref>Edit</Link>&nbsp;&nbsp;&nbsp;
-        <a onClick={removeList}>Remove</a>
+        <a onClick={removeList} style={{cursor: "pointer"}}>Remove</a>
       </div>
     </div>
   )

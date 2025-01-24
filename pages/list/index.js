@@ -8,6 +8,7 @@ import { getListById } from "@/hooks/list";
 import { getGifts } from "@/hooks/gift";
 import { useRouter } from "next/router";
 import PageLayout from "@/components/layouts/PageLayout"
+import Image from 'next/image';
 
 const List = () => {
     const searchParams = useSearchParams()
@@ -57,27 +58,59 @@ const List = () => {
         return navigator.clipboard && navigator.clipboard.writeText;
     }
 
-    if (loading) return <div>Loading...</div>;
-    if (error) return <div>Error: {error}</div>;
-    if (!list) return <div>List not found</div>;
+    if (loading) return (
+        <PageLayout title="Loading...">
+        </PageLayout>
+    );
+    if (error) return (
+        <PageLayout title="List Errors">
+            <div>Error: {error}</div>
+        </PageLayout>
+    );
+    if (!list) return (
+        <PageLayout title="View List">
+            <div>List not found</div>
+        </PageLayout>
+    );
     return (
-        <PageLayout title={list.list_name}>
-            <div>
-                {userId == list.user_id && <div><button onClick={() => router.push('/list/gift/new?list_id=' + list.id)}>Add Gift</button></div>}
+        <PageLayout title="View List">
+            <div style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "50%",
+                marginLeft: "auto",
+                marginRight: "auto",
+            }}>
                 <div>
-                    Share Link: {shareLink()} { canCopy() && <a style={{cursor: "pointer"}} onClick={() => navigator.clipboard.writeText(shareLink())}>Copy</a> }
+                    <h1>{list.list_name}</h1>
+                    <p>{list.description}</p>
                 </div>
+                { list.user_id == userId && <div>
+                    <button onClick={() => router.push('/list/gift/new?list_id=' + list.id)}>Add Gift</button>
+                    <button onClick={() => router.push('/list/edit?list_id=' + list.id)}>Edit List</button>
+                </div> }
                 <div>
-                    Gifts
-                    { gifts && gifts.length > 0 ?
-                        <ul>
-                            {gifts.map((gift, index) => {
-                            return (
-                                <GiftListObject gift={gift} key={index} canEdit={list.user_id == userId}/>
-                            )
-                            })}
-                        </ul> : <p>No gifts</p>
-                    }
+                    <div style={{textAlign: "right"}}>
+                        <div style={{textAlign: "left"}}>
+                            Share This List!
+                            <br/>
+                            {shareLink()} { canCopy() && <a style={{cursor: "pointer"}} onClick={() => navigator.clipboard.writeText(shareLink())}>
+                                <Image src="/copy.svg" alt="Copy" width={20} height={20}/>
+                            </a> }
+                        </div>
+                    </div>
+                    <div>
+                        Gifts
+                        { gifts && gifts.length > 0 ?
+                            <ul>
+                                {gifts.map((gift, index) => {
+                                return (
+                                    <GiftListObject gift={gift} key={index} canEdit={list.user_id == userId}/>
+                                )
+                                })}
+                            </ul> : <p>No gifts</p>
+                        }
+                    </div>
                 </div>
             </div>
         </PageLayout>

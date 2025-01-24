@@ -30,7 +30,7 @@ export default function GiftListObject({ gift, canEdit, key }) {
       </Link>
       { canEdit && <div>
         <Link href={`/list/gift/edit?list_id=${gift.list_id}&gift_id=${gift.id}`} passHref>Edit</Link>&nbsp;&nbsp;&nbsp;
-        <a onClick={removeGift}>Remove</a>
+        <a onClick={removeGift} style={{cursor: "pointer"}}>Remove</a>
       </div>}
     </div>
   )

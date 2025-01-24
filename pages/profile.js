@@ -35,7 +35,7 @@ export default function Profile() {
   }, [token]);
 
   return (
-    <PageLayout title="Profile page" requireAuth={true}>
+    <PageLayout title="Profile" requireAuth={true} activeNavigationPage={"profile"}>
       {/* <UserDetails /> */}
       <div>
           <button onClick={() => router.push('/list/new')}>New List</button>
