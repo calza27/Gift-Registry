@@ -4,7 +4,6 @@ export default function InputLayout({ children }){
     <div
       style={{
         paddingBottom: "10px",
-        width: "50%",
       }}>
       {children}
     </div>

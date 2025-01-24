@@ -95,7 +95,12 @@ export default function GiftForm({ listId, giftData, successAction }) {
                     handleBlur,
                     handleSubmit
                 }) => (
-                    <form onSubmit={handleSubmit}>
+                    <form
+                        onSubmit={handleSubmit}
+                        style={{
+                            width: "50%",
+                        }}
+                    >
                         <InputLayout>
                             <Label>Gift Title</Label>
                             <InputField

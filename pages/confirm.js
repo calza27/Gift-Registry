@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js'
 import { COGNITO_APP_CLIENT_ID, COGNITO_USER_POOL_ID } from "@/const/cognito";
+import AuthLayout from "@/components/layouts/AuthLayout";
 
 export default function Confirm(){
 	const router = useRouter();
@@ -39,9 +40,7 @@ export default function Confirm(){
 	}
 
 	return (
-		<div style={{
-			padding: "10px"
-		}}>
+		<AuthLayout>
 			<Formik
 				initialValues={{
 					username: email,
@@ -61,7 +60,12 @@ export default function Confirm(){
 						handleChange,
 						handleBlur
 					 }) => (
-						<form onSubmit={handleSubmit}>
+						<form
+							onSubmit={handleSubmit}
+							style={{
+							width: "25%",
+							}}
+						>
 							<InputLayout>
 								<Label>Confirmation Code</Label>
 								<InputField
@@ -80,6 +84,6 @@ export default function Confirm(){
 				}
 			</Formik>
 			{ confirmError && <div> Error: {confirmError}</div> }
-		</div>
+		</AuthLayout>
 	)
 }

@@ -11,7 +11,7 @@ import { useState } from "react";
 import { AuthenticationDetails, CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js';
 import { COGNITO_APP_CLIENT_ID, COGNITO_USER_POOL_ID } from "@/const/cognito";
 import { setToken, setUser } from "@/hooks/cookies";
-
+import AuthLayout from "@/components/layouts/AuthLayout";
 
 export default function Login() {
   const router = useRouter();
@@ -56,9 +56,7 @@ export default function Login() {
   }
 
   return (
-    <div style={{
-      padding: "10px"
-    }}>
+    <AuthLayout>
       { message && <div>{message}</div> }
       <Formik
         initialValues={{
@@ -78,7 +76,12 @@ export default function Login() {
           handleBlur,
           handleSubmit
         }) => (
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={handleSubmit}
+            style={{
+              width: "25%",
+            }}
+          >
             <InputLayout>
               <Label>Email</Label>
               <InputField
@@ -109,11 +112,11 @@ export default function Login() {
             <InputLayout>
               <AuthLinkText href="/register">{'Don\'t have an account? Register.'}</AuthLinkText>
             </InputLayout>
-            <SubmitButton isSubmitting={isSubmitting} />
+            <SubmitButton isSubmitting={isSubmitting} passiveText="Login" activeText="Authenticating..."/>
           </form>
         )}
       </Formik>
       { loginError && <div> Error: {loginError}</div> }
-    </div>
+    </AuthLayout>
   );
 }

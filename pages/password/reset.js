@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js';
 import { COGNITO_APP_CLIENT_ID, COGNITO_USER_POOL_ID } from "@/const/cognito";
+import AuthLayout from "@/components/layouts/AuthLayout";
 
 export default function Reset(){
 	const router = useRouter()
@@ -43,9 +44,7 @@ export default function Reset(){
 	}
 
 	return (
-		<div style={{
-			padding: "10px"
-		}}>
+		<AuthLayout>
 			<div>Reset code sent to {email} - Please enter it below and enter a new password</div>
 			<Formik
 				initialValues={{
@@ -69,7 +68,12 @@ export default function Reset(){
 						handleBlur,
 						handleChange
 					}) => (
-						<form onSubmit={handleSubmit}>
+						<form
+							onSubmit={handleSubmit}
+							style={{
+							width: "25%",
+							}}
+						>
 							<InputLayout>
 								<Label>Reset code</Label>
 								<InputField
@@ -106,12 +110,12 @@ export default function Reset(){
 								/>
 								<InputHelperText isError>{errors?.confirm_password}</InputHelperText>
 							</InputLayout>
-							<SubmitButton isSubmitting={isSubmitting} />
+							<SubmitButton isSubmitting={isSubmitting} passiveText="Submit" activeText="Submitting..." />
 						</form>
 					)
 				}
 			</Formik>
 			{ resetError && <div> Error: {resetError}</div> }
-		</div>
+		</AuthLayout>
 	)
 }

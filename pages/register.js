@@ -9,6 +9,7 @@ import useValidationSchema from "@/hooks/useValidationSchema";
 import { COGNITO_APP_CLIENT_ID, COGNITO_USER_POOL_ID } from "@/const/cognito";
 import { CognitoUserAttribute, CognitoUserPool } from 'amazon-cognito-identity-js';
 import { useRouter } from "next/router";
+import AuthLayout from "@/components/layouts/AuthLayout";
 
 export default function Register() {
 	const { registerSchema } = useValidationSchema()
@@ -53,9 +54,7 @@ export default function Register() {
 	}
 
 	return (
-		<div style={{
-			padding: "10px"
-		}}>
+		<AuthLayout>
 			<Formik
 				initialValues={{
 					email: "",
@@ -75,7 +74,12 @@ export default function Register() {
 					handleChange,
 					handleBlur
 				}) => (
-					<form onSubmit={handleSubmit}>
+					<form
+						onSubmit={handleSubmit}
+						style={{
+						width: "25%",
+						}}
+					>
 						<InputLayout>
 							<Label>Email</Label>
 							<InputField
@@ -119,6 +123,6 @@ export default function Register() {
 					</form>
 				)}
 			</Formik>
-		</div>
+		</AuthLayout>
 	)
 }

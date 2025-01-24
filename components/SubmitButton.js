@@ -2,7 +2,7 @@
 import { CUR } from 'aws-sdk';
 import Button from './Button';
 
-export default function SubmitButton({ disabled = false, isSubmitting = false }) {
+export default function SubmitButton({ disabled = false, isSubmitting = false, passiveText="Save", activeText="Saving..." }) {
   const opacity = () => {
     if (disabled) {
       return "0.5";
@@ -30,7 +30,7 @@ export default function SubmitButton({ disabled = false, isSubmitting = false })
         opacity: opacity(),
         cursor: pointer(),
       }}>
-      {isSubmitting ? 'Saving...' : 'Save'}
+      {isSubmitting ? activeText : passiveText}
     </Button>
   )
 }

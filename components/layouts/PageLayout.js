@@ -32,11 +32,21 @@ export default function PageLayout({
 
   const logout = () => {
     clearToken()
-    router.push('/')
+    if (router.pathname === "/") router.reload()
+    else router.push('/')
   };
 
   const back = () => {
     router.back()
+  }
+
+  const showHome = () => {
+    if (router.pathname === "/") return false
+    return true
+  }
+
+  const home = () => {
+    router.push("/")
   }
 
 	const handleChange = (e) => {
@@ -59,16 +69,25 @@ export default function PageLayout({
           height: "100px",
           borderBottom: "1px solid black"
         }}>
-          { showBack && <div style={{
+          <div style={{
             position: "absolute",
             left: "10px",
             top: "10px"
           }}>
-              <a onClick={back} style={{cursor: "pointer"}}>
-                <Image src="/back-arrow.svg" alt="Back" width={20} height={20} style={{position: "relative", top: "3px"}}/>
-                Back
-              </a>
-          </div> }
+              <div style={{
+                display: "flex",
+                flexDirection: "row",
+              }}>
+                { showBack && <a onClick={back} style={{cursor: "pointer"}}>
+                  <Image src="/back-arrow.svg" alt="Back" width={20} height={20} style={{position: "relative", top: "3px"}}/>
+                  &nbsp;Back&nbsp;&nbsp;&nbsp;
+                </a> }
+                { showHome() && <a onClick={home} style={{cursor: "pointer"}}>
+                  Home&nbsp;
+                  <Image src="/home.svg" alt="Home" width={20} height={20} style={{position: "relative", top: "3px"}}/>
+                </a> }
+              </div>
+          </div>
           <div style={{
             position: "absolute",
             left: "10px",
@@ -138,14 +157,20 @@ export default function PageLayout({
       }}>
         <div style={{
           position: "absolute",
+          left: "10px",
           right: "10px",
           bottom: "10px"
         }}>
-          <div style={{textAlign: "right"}}>
-            <Link href="/about" passHref>About</Link>
-          </div>
-          <div style={{textAlign: "right"}}>
-            A Blank Pages Project
+          <div style={{
+            display: "flex",
+            flexDirection: "row",
+          }}>
+            <div style={{flexGrow: "1", textAlign: "left"}}>
+              A Blank Pages Project &copy; 2025
+            </div>
+            <div style={{flexGrow: "1", textAlign: "right"}}>
+              <Link href="/about" passHref>About Blank Pages</Link>
+            </div>
           </div>
         </div>
       </div>

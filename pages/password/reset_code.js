@@ -9,6 +9,7 @@ import { CognitoUser, CognitoUserPool } from 'amazon-cognito-identity-js';
 import { COGNITO_APP_CLIENT_ID, COGNITO_USER_POOL_ID } from "@/const/cognito";
 import { useState } from "react";
 import { useRouter } from "next/router"
+import AuthLayout from "@/components/layouts/AuthLayout";
 
 export default function ResetCode(){
 	const router = useRouter();
@@ -44,9 +45,7 @@ export default function ResetCode(){
 	}
 
 	return (
-		<div style={{
-			padding: "10px"
-		}}>
+		<AuthLayout>
 			<Formik
 				initialValues={{
 					email: ""
@@ -66,7 +65,12 @@ export default function ResetCode(){
 						handleChange,
 						handleBlur
 					}) => (
-						<form onSubmit={handleSubmit}>
+						<form
+							onSubmit={handleSubmit}
+							style={{
+							width: "25%",
+							}}
+						>
 							<InputLayout>
 								<Label>Email</Label>
 								<InputField
@@ -85,6 +89,6 @@ export default function ResetCode(){
 				}
 			</Formik>
 			{ resetError && <div> Error: {resetError}</div> }
-		</div>
+		</AuthLayout>
 	)
 }

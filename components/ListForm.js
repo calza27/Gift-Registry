@@ -90,7 +90,12 @@ export default function ListForm({ listData, successAction }) {
                     handleBlur,
                     handleSubmit
                 }) => (
-                    <form onSubmit={handleSubmit}>
+                    <form
+                        onSubmit={handleSubmit}
+                        style={{
+                            width: "50%",
+                        }}
+                    >
                         <InputLayout>
                             <Label>Name</Label>
                             <InputField
