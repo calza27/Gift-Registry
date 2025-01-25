@@ -55,7 +55,7 @@ const List = () => {
     }, [list_id]);
 
     const shareLink = () => {
-        return window.location.origin + "/list?list_id=" + list.sharing_id;
+        return window.location.origin + "/list/?list_id=" + list.sharing_id;
     }
 
     const canCopy = () => {
