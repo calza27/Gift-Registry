@@ -55,11 +55,7 @@ const List = () => {
     }, [list_id]);
 
     const shareLink = () => {
-        return window.location.origin + "/list?list_id=" + list.sharing_id;
-    }
-
-    const canCopy = () => {
-        return navigator.clipboard && navigator.clipboard.writeText;
+        return window.location.origin + "/list/?list_id=" + list.sharing_id;
     }
 
     const mouseHoverCopy = (event) => {
@@ -67,7 +63,7 @@ const List = () => {
             document.body.removeChild(hoverEl);
         }
         var newElement = document.createElement("div");
-        newElement.innerHTML = "Copy to clipboard";
+        newElement.innerHTML = "Copy Link";
         newElement.style.position = "absolute";
         newElement.style.top = event.clientY + 10 + "px";
         newElement.style.left = event.clientX + 10 + "px";
@@ -86,24 +82,37 @@ const List = () => {
     }
 
     const mouseOutCopy = () => {
-        if (hoverEl) {
-            document.body.removeChild(hoverEl);
+        if (hoverEl && document.body.contains(hoverEl)) {
+            if (document.body.hasChildNodes(hoverEl)) {
+                document.body.removeChild(hoverEl);
+            }
             setHoverEl(null);
         }
     }
 
     const copyClicked = () => {
-        navigator.clipboard.writeText(shareLink());
+        copyText();
         if (hoverEl) {
             hoverEl.innerHTML = "Copied!";
             setTimeout(() => {
-                if (hoverEl && document.body.contains(hoverEl)) {
-                    document.body.removeChild(hoverEl);
-                    setHoverEl(null);
-                }
+                mouseOutCopy();
             }, 1000);
         }
-    } 
+    }
+
+    const copyText = () => {
+        const textArea = document.createElement("textarea");
+        textArea.value = shareLink();
+        textArea.style.position = "absolute";
+        textArea.style.left = "-999999px";
+        document.body.prepend(textArea);
+        textArea.select();
+        try {
+            document.execCommand('copy');
+        } finally {
+            textArea.remove();
+        }
+    }
 
     if (loading) return (
         <PageLayout title="Loading...">
@@ -153,10 +162,10 @@ const List = () => {
                         marginBottom: "2rem",
                     }}>
                         <div style={{textAlign: "left"}}>
-                            Share This List!&nbsp;&nbsp;
-                            <span>{shareLink()} { canCopy() && <a style={{cursor: "pointer"}} onClick={copyClicked} onMouseOver={mouseHoverCopy} onMouseOut={mouseOutCopy}>
+                            Share This Code!&nbsp;&nbsp;
+                            <span><span id="share_id">{list.sharing_id}</span> <a style={{cursor: "pointer"}} onClick={copyClicked} onMouseOver={mouseHoverCopy} onMouseOut={mouseOutCopy}>
                                 <Image src="/copy.svg" alt="Copy" width={20} height={20}/>
-                            </a> }</span>
+                            </a></span>
                         </div>
                     </div>
                     <div>

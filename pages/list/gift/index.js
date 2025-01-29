@@ -69,6 +69,10 @@ const Gift = () => {
         router.push('/list/gift/edit?list_id=' + list_id + '&gift_id=' + gift_id);
     }
 
+    const backToList = () => {
+        router.push('/list?list_id=' + list_id);
+    }
+
     if (loading) return (
         <PageLayout title="Loading...">
         </PageLayout>
@@ -92,6 +96,15 @@ const Gift = () => {
                 marginLeft: "auto",
                 marginRight: "auto",
             }}>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    paddingBottom: "1rem",
+                }}>
+                    { <div> 
+                        <Button onClick={backToList}>Back to List</Button>
+                    </div> }
+                </div>
                 <div style={{
                     display: "flex",
                     flexDirection: "row",
