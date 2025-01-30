@@ -37,18 +37,9 @@ export default function Profile() {
 
   return (
     <PageLayout title="Profile" requireAuth={true} activeNavigationPage={"profile"}>
-      <div style={{
-        display: "flex",
-        flexDirection: "column",
-        width: "50%",
-        marginLeft: "auto",
-        marginRight: "auto",
-      }}>
+      <div className="flex column center">
         {/* <UserDetails /> */}
-        <div style={{
-            display: "flex",
-            flexDirection: "row",
-        }}>
+        <div className="flex row">
           <div style={{flexGrow: "10" }}>
             <h1>My Lists</h1>
           </div>
@@ -56,28 +47,22 @@ export default function Profile() {
             <Button onClick={() => router.push('/list/new')}>New List</Button>
           </div>
         </div>
-        <div>
+        <div className="contentWidth flex column middle">
           { loading && <div>Loading... </div>}
           { error && <div>Error: {error}</div>}
           { lists && lists.length > 0 ?
-            <ul>
+            <div className="flex column fullWidth">
               {lists.map((list, index) => {
                 return <ListObject giftList={list} key={index} />
               })}
-              <div style={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                padding: "0.5rem",
-                margin: "0.5rem",
-              }}>
+              <div className="flex row center">
                 <div style={{
                   flexGrow: "0.2",
                   marginLeft: "auto",
                   marginRight: "auto",
                 }}><Button onClick={() => router.push('/list/new')}>Add New List</Button></div>
               </div>
-            </ul> : <div>
+            </div> : <div>
                 <p>No lists created yet!</p>
                 <Button onClick={() => router.push('/list/new')}>Add A List</Button>
             </div>

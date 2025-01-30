@@ -55,7 +55,7 @@ export default function Register() {
 
 	return (
 		<AuthLayout>
-			<div>
+			<div className="authHeader">
 				<h1>Surprise.me Registration</h1>
 			</div>
 			<Formik
@@ -79,9 +79,7 @@ export default function Register() {
 				}) => (
 					<form
 						onSubmit={handleSubmit}
-						style={{
-						width: "25%",
-						}}
+						className="authForm"
 					>
 						<InputLayout>
 							<Label>Email</Label>

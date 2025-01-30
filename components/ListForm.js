@@ -92,9 +92,7 @@ export default function ListForm({ listData, successAction }) {
                 }) => (
                     <form
                         onSubmit={handleSubmit}
-                        style={{
-                            width: "50%",
-                        }}
+                        className="fullWidth"
                     >
                         <InputLayout>
                             <Label>Name</Label>

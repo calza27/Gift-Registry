@@ -65,6 +65,10 @@ const Gift = () => {
         checkCanEdit();
     }, [list_id, userId]);
 
+    const websiteButtonClicked = () => {
+        window.open(getUrlForGift(gift), "_blank")
+    }
+
     const editGift = async () => {
         router.push('/list/gift/edit?list_id=' + list_id + '&gift_id=' + gift_id);
     }
@@ -89,70 +93,37 @@ const Gift = () => {
     );
     return (
         <PageLayout title="View Gift">
-            <div style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "50%",
-                marginLeft: "auto",
-                marginRight: "auto",
-            }}>
-                <div style={{
-                    display: "flex",
-                    flexDirection: "row",
+            <div clasName="flex column">
+                <div clasName="flex row" style={{
                     paddingBottom: "1rem",
                 }}>
                     { <div> 
                         <Button onClick={backToList}>Back to List</Button>
                     </div> }
                 </div>
-                <div style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    paddingBottom: "1rem",
-                    marginBottom: "2rem",
-                    borderBottom: "1px solid #D2D2D2",
-                }}>
+                <div className="flex row">
                     { gift.image_file_name && <div style={{flexGrow: "0.2"}}>
                         <GiftImage entity={gift} alt={gift.title} />
                     </div> }
                     <div style={{flexGrow: "10" }}>
                         <h1>{gift.title}</h1>
                     </div>
-                    { canEdit && <div style={{flexGrow: "1", textAlign: "right" }}> 
-                        <Button onClick={editGift}>Edit Gift</Button>
-                    </div> }
                 </div>
-                <div style={{
-                    display: "flex",
-                    flexDirection: "column",
-                }}>
+                <div className="flex column">
+                    <div className="borderedBox borderBottom flex row fullWidth" style={{marginBottom: "1rem"}}>
+                        { canEdit && <div style={{flexGrow: "1", textAlign: "right" }}> 
+                            <Button onClick={editGift}>Edit Gift</Button>
+                        </div> }
+                    </div>
                     { gift.url && <div style={{
                         marginBottom: "2rem",
                     }}>
                         <div><b>Website</b></div>
                         <div>
-                            <Link
-                                passHref
-                                href={getUrlForGift(gift)}
-                                target="_blank"
-                                style={{
-                                    display: "block",
-                                    backgroundColor: "#fff",
-                                    borderRadius: "5px",
-                                    border: "1px solid #D2D2D2",
-                                    color: "#C74152",
-                                    cursor: "pointer",
-                                    padding: "8px 20px",
-                                    boxShadow: "0 2px 4px #D2D2D2",
-                                    margin: "10px 0px 0px 0px",
-                                    width: "fit-content",
-                                }}
-                            >Website</Link>
+                            <Button onClick={websiteButtonClicked}>Website</Button>
                         </div>
                     </div> }
-                    <div style={{
-                        display: "flex",
-                        flexDirection: "row",
+                    <div className="flex row" style={{
                         marginBottom: "2rem",
                     }}>
                         <div style={{
@@ -176,12 +147,7 @@ const Gift = () => {
                         marginBottom: "2rem",
                     }}>
                         <div><b>Details</b></div>
-                        <div style={{
-                            color: "#515151",
-                            fontSize: "1rem",
-                            width: "50%",
-                            padding: "0.5rem",
-                        }}>{gift.description}</div>
+                        <div className="description">{gift.description}</div>
                     </div>
                 </div>
             </div>

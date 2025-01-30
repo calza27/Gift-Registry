@@ -70,9 +70,7 @@ export default function ResetCode(){
 					}) => (
 						<form
 							onSubmit={handleSubmit}
-							style={{
-							width: "25%",
-							}}
+							className="authForm"
 						>
 							<InputLayout>
 								<Label>Email</Label>

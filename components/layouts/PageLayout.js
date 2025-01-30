@@ -58,57 +58,20 @@ export default function PageLayout({
 	}
 
   return(
-    <div style={{backgroundColor: "#FCF5E5", height: "100vh"}}>
-      <div
-        style={{
-          position: "fixed",
-          top: "0",
-          width: "100%",
-          zIndex: "2",
-          padding: "10px",
-          height: "100px",
-          borderBottom: "1px solid black"
-        }}>
-          <div style={{
-            position: "absolute",
-            left: "10px",
-            top: "10px"
-          }}>
-              <div style={{
-                display: "flex",
-                flexDirection: "row",
-              }}>
-                { showBack && <a onClick={back} style={{cursor: "pointer"}}>
-                  <Image src="/back-arrow.svg" alt="Back" width={20} height={20} style={{position: "relative", top: "3px"}}/>
-                  &nbsp;Back&nbsp;&nbsp;&nbsp;
-                </a> }
-                { showHome() && <a onClick={home} style={{cursor: "pointer"}}>
-                  Home&nbsp;
-                  <Image src="/home.svg" alt="Home" width={20} height={20} style={{position: "relative", top: "3px"}}/>
-                </a> }
-              </div>
+    <div id="page_layout" className="flex column">
+      <div id="header" className="flex column">
+        <div className="flex row">
+          <div className="flex row" style={{flexGrow: "1"}}>
+            { showBack && <a className="navLink" onClick={back}>
+              <Image src="/back-arrow.svg" alt="Back" className="icon" width={20} height={20}/>
+              <span className="navText">Back</span>
+            </a> }
+            { showHome() && <a className="navLink" onClick={home}>
+              <span className="navText">Home</span>
+              <Image src="/home.svg" alt="Home" className="icon" width={20} height={20}/>
+            </a> }
           </div>
-          <div style={{
-            position: "absolute",
-            left: "10px",
-            bottom: "10px"
-          }}>
-              <div style={{display: "flex", justifyContent: "center"}}>
-                <h1 style={{margin: "0px", marginRight: "50px", width: "200px"}}>{title}</h1>
-                { token && <div style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
-                  <div {...activeNavigationPage === "profile" ? {style: {borderBottom: "2px solid black", marginRight: "10px"}} : {style: {marginRight: "10px"}}}>
-                    <Link href="/profile" passHref>
-                      <div style={{textAlign: "center"}}>
-                        <Image src="/profile.svg" alt="Profile" width={30} height={30}/>
-                        <br/>
-                        Profile
-                      </div>
-                    </Link>
-                    </div>
-                </div>}
-              </div>
-          </div>
-          <div style={{textAlign: "center", paddingTop: "10px", paddingRight: "10px"}}>
+          <div className="flex row center" style={{flexGrow: "9"}}>
             <div style={{marginBottom: "10px"}}>
               <SearchField
                 type="text"
@@ -119,58 +82,52 @@ export default function PageLayout({
               />
             </div>
           </div>
-          <div style={{
-            position: "absolute",
-            right: "10px",
-            bottom: "10px"
-          }}>
-            { token && <div>
-              <p style={{marginRigt: "5px"}}>Hello {userEmail}!</p>
-              <Button onClick={() => logout()} style={{marginRight: "5px"}}>Logout</Button>
-            </div> }
-            { !token && <div>
-              <Button onClick={() => router.push('/login')} style={{marginRight: "5px"}}>Login</Button>
-              <Button onClick={() => router.push('/register')} style={{marginRight: "5px"}}>Register</Button>
-            </div> }
+        </div>
+        <div className="flex row end">
+          <div className="flex center end">
+            <div className="title">
+              <span>{title}</span>
+            </div>
+            { token && <div className="">
+              <div {...activeNavigationPage === "profile" ? {style: {borderBottom: "2px solid black", marginRight: "10px"}} : {style: {marginRight: "10px"}}}>
+                <Link href="/profile" passHref>
+                  <div className="centerText">
+                    <Image src="/profile.svg" alt="Profile" width={30} height={30}/>
+                    <br/>
+                    Profile
+                  </div>
+                </Link>
+                </div>
+            </div>}
           </div>
+          { token && <div className="flex column right">
+              <div className="hide-small">
+                <p style={{marginRigt: "5px"}}>Hello {userEmail}!</p>
+              </div>
+              <div className="right">
+                <Button onClick={() => logout()}>Logout</Button>
+              </div>
+            </div> }
+          { !token && <div className="flex row right">
+              <div>
+                <Button onClick={() => router.push('/login')}>Login</Button>
+              </div>
+              <div>
+                <Button onClick={() => router.push('/register')}>Register</Button>
+              </div>
+            </div> }
+        </div>
       </div>
-      <div style={{
-        position: "relative",
-        top: "100px",
-        bottom: "50px",
-        height: "calc(100vh - 150px)",
-        width: "calc(100vw - 100px)",
-        overflowY: "auto",
-        marginLeft: "auto",
-        marginRight: "auto",
-        paddingTop: "3rem",
-      }}>
+      <div id="content">
         {children}
       </div>
-      <div style={{
-        position: "fixed",
-        bottom: "0",
-        width: "100%",
-        height: "50px",
-        zIndex: "2",
-        borderTop: "1px solid black"
-      }}>
-        <div style={{
-          position: "absolute",
-          left: "10px",
-          right: "10px",
-          bottom: "10px"
-        }}>
-          <div style={{
-            display: "flex",
-            flexDirection: "row",
-          }}>
-            <div style={{flexGrow: "1", textAlign: "left"}}>
-              A Blank Pages Project &copy; 2025
-            </div>
-            <div style={{flexGrow: "1", textAlign: "right"}}>
-              <Link href="/about" passHref>About Blank Pages</Link>
-            </div>
+      <div id="footer" className="flex column center">
+        <div className="flex row">
+          <div style={{flexGrow: "1", textAlign: "left"}}>
+            A Blank Pages Project &copy; 2025
+          </div>
+          <div style={{flexGrow: "1", textAlign: "right"}}>
+            <Link href="/about" passHref>About</Link>
           </div>
         </div>
       </div>

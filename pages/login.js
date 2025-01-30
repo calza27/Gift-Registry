@@ -57,7 +57,7 @@ export default function Login() {
 
   return (
     <AuthLayout>
-      <div>
+      <div className="authHeader">
         <h1>Surprise.me Login</h1>
       </div>
       { message && <div>{message}</div> }
@@ -81,9 +81,7 @@ export default function Login() {
         }) => (
           <form
             onSubmit={handleSubmit}
-            style={{
-              width: "25%",
-            }}
+            className="authForm"
           >
             <InputLayout>
               <Label>Email</Label>
@@ -115,7 +113,7 @@ export default function Login() {
             <InputLayout>
               <AuthLinkText href="/register">{'Don\'t have an account? Register.'}</AuthLinkText>
             </InputLayout>
-            <SubmitButton isSubmitting={isSubmitting} passiveText="Login" activeText="Authenticating..."/>
+            <SubmitButton isSubmitting={isSubmitting} passiveText="Login" activeText="Authenticating.."/>
           </form>
         )}
       </Formik>

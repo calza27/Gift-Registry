@@ -25,14 +25,7 @@ export default function ListObject({ giftList, key }) {
 
   return (
     <Link href={`/list?list_id=${giftList.id}`} key={key} passHref>
-      <div style={{
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        padding: "0.5rem",
-        borderBottom: "1px solid #D2D2D2",
-        margin: "0.5rem",
-      }}>
+      <div className="flex row center borderedBox borderBottom">
         <div style={{
           flexGrow: "0.2",
         }}>
@@ -42,10 +35,7 @@ export default function ListObject({ giftList, key }) {
           flexGrow: "10",
           marginLeft: "1rem",
         }}>
-            <div style={{
-              display: "flex",
-              flexDirection: "column",
-            }}>
+            <div className="flex column">
               <div style={{color: "black", fontWeight: "bold"}}>{giftList.list_name}</div>
             </div>
         </div>

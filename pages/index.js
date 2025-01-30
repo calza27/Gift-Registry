@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 export default function Home() {
 	const router = useRouter()
 	return (
-		<PageLayout title="Surprise.Me" showBack={false}>
+		<PageLayout title="Surprise.Me">
 			<div>
 				<h2>Surprise.me!</h2>
 				<p>Create gift lists for all of your events!</p>

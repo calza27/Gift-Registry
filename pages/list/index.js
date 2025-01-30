@@ -130,66 +130,41 @@ const List = () => {
     );
     return (
         <PageLayout title="View List">
-            <div style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "50%",
-                marginLeft: "auto",
-                marginRight: "auto",
-            }}>
-                <div style={{
-                    display: "flex",
-                    flexDirection: "row",
-                }}>
-                    { list.image_file_name && <div style={{flexGrow: "0.2"}}>
+            <div className="flex column center">
+                <div className="flex row middle">
+                    { list.image_file_name && <div>
                         <GiftImage entity={list} alt={list.list_name} />
                     </div> }
-                    <div style={{flexGrow: "10" }}>
+                    <div style={{paddingLeft: "10px"}}>
                         <h1>{list.list_name}</h1>
                         <p>{list.description}</p>
                     </div>
-                    { list.user_id == userId && <div style={{flexGrow: "1", texxtAlign: "right" }}> 
-                        <Button onClick={() => router.push('/list/gift/new?list_id=' + list.id)}>Add Gift</Button>
-                        <br/>
-                        <Button onClick={() => router.push('/list/edit?list_id=' + list.id)}>Edit List</Button>
-                    </div> }
                 </div>
-                <div>
-                    <div style={{
-                        borderBottom: "1px solid #D2D2D2",
-                        paddingTop: "1rem",
-                        paddingBottom: "1rem",
-                        marginBottom: "2rem",
-                    }}>
-                        <div style={{textAlign: "left"}}>
+                <div className="flex column fullWidth middle">
+                    <div className="borderedBox borderBottom flex row fullWidth">
+                        <div className="flex end">
                             Share This Code!&nbsp;&nbsp;
                             <span><span id="share_id">{list.sharing_id}</span> <a style={{cursor: "pointer"}} onClick={copyClicked} onMouseOver={mouseHoverCopy} onMouseOut={mouseOutCopy}>
                                 <Image src="/copy.svg" alt="Copy" width={20} height={20}/>
                             </a></span>
                         </div>
+                        { list.user_id == userId && <div className="flex column right"> 
+                            <Button onClick={() => router.push('/list/gift/new?list_id=' + list.id)}>Add Gift</Button>
+                            <Button onClick={() => router.push('/list/edit?list_id=' + list.id)}>Edit List</Button>
+                        </div> }
                     </div>
-                    <div>
+                    <div className="contentWidth flex column middle">
                         { gifts && gifts.length > 0 ?
-                            <ul>
+                            <div className="flex column fullWidth">
                                 {gifts.map((gift, index) => {
                                 return (
                                     <GiftListObject gift={gift} key={index} canEdit={list.user_id == userId}/>
                                 )
                                 })}
-                                { list.user_id == userId &&<div style={{
-                                    display: "flex",
-                                    flexDirection: "row",
-                                    alignItems: "center",
-                                    padding: "0.5rem",
-                                    margin: "0.5rem",
-                                }}>
-                                    <div style={{
-                                        flexGrow: "0.2",
-                                        marginLeft: "auto",
-                                        marginRight: "auto",
-                                    }}><Button onClick={() => router.push('/list/gift/new?list_id=' + list.id)}>Add A Gift</Button></div>
+                                { list.user_id == userId &&<div className="flex row center middle">
+                                    <div><Button onClick={() => router.push('/list/gift/new?list_id=' + list.id)}>Add Gift</Button></div>
                                 </div>}
-                            </ul> : <div>
+                            </div> : <div>
                                 <p>No gifts in this list yet!</p>
                                 { list.user_id == userId && <Button onClick={() => router.push('/list/gift/new?list_id=' + list.id)}>Add A Gift</Button> }
                             </div>

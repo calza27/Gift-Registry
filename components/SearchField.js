@@ -17,11 +17,7 @@ export default function SearchField({
   }
 
   return (
-    <div style={{
-      position: "relative",
-      width: "300px",
-      margin: "0 auto"
-    }}>
+    <div className="searchContainer">
       <InputField
         type={type}
         name={name}
@@ -31,19 +27,8 @@ export default function SearchField({
         value={value}
         onKeyPress={handleKeyPress}
       />
-      <a
-        onClick={searchAction}
-        style={{
-          cursor: "pointer",
-          position: "absolute",
-          right: "0",
-          top: "0",
-          width: "1.5rem",
-          marginRight: "0.75rem",
-          marginTop: "0.5rem"
-        }}
-      >
-        <Image src={"/lens.svg"} alt="Search" width={20} height={20} />
+      <a onClick={searchAction} className="searchIcon">
+        <Image src={"/lens.svg"} alt="Search" className="icon" width={20} height={20} />
       </a>
     </div>
   )

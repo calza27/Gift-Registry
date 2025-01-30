@@ -62,13 +62,7 @@ const EditGift = () => {
             { loading && <div>Loading...</div> }
             { error && <div>{error}</div> }
             { !loading && !gift && <div>Gift not found</div> }
-            { !loading && gift && <div style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "50%",
-                marginLeft: "auto",
-                marginRight: "auto",
-            }}>
+            { !loading && gift && <div className="flex column contentWidth">
                 <div style={{textAlign: "right"}}>
                     <Button onClick={removeGift}>Remove Gift</Button>
                 </div>

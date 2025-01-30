@@ -61,13 +61,7 @@ const EditList = () => {
             { loading && <div>Loading...</div> }
             { error && <div>{error}</div> }
             { !loading && !list && <div>List not found</div> }
-            { !loading && list && <div style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "50%",
-                marginLeft: "auto",
-                marginRight: "auto",
-            }}>
+            { !loading && list && <div className="flex column contentWidth">
                 <div style={{textAlign: "right"}}>
                     <Button onClick={removeList}>Remove List</Button>
                 </div>

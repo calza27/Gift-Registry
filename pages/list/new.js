@@ -11,13 +11,7 @@ const NewList = () => {
     }
     return (
         <PageLayout title="New List" requireAuth={true}>
-            <div style={{
-                display: "flex",
-                flexDirection: "column",
-                width: "50%",
-                marginLeft: "auto",
-                marginRight: "auto",
-            }}>
+            <div className="flex column contentWidth">
                 <ListForm successAction={redirect}/>
             </div>
         </PageLayout>

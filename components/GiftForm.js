@@ -97,9 +97,7 @@ export default function GiftForm({ listId, giftData, successAction }) {
                 }) => (
                     <form
                         onSubmit={handleSubmit}
-                        style={{
-                            width: "50%",
-                        }}
+                        className="fullWidth"
                     >
                         <InputLayout>
                             <Label>Gift Title</Label>
