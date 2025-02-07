@@ -157,9 +157,18 @@ const List = () => {
                         { gifts && gifts.length > 0 ?
                             <div className="flex column fullWidth">
                                 {gifts.map((gift, index) => {
-                                return (
-                                    <GiftListObject gift={gift} key={index} canEdit={list.user_id == userId}/>
-                                )
+                                    if (!gift.purchased) {
+                                        return (
+                                            <GiftListObject gift={gift} key={index} canEdit={list.user_id == userId}/>
+                                        )
+                                    }
+                                })}
+                                {gifts.map((gift, index) => {
+                                    if (gift.purchased) {
+                                        return (
+                                            <GiftListObject gift={gift} key={index} canEdit={list.user_id == userId}/>
+                                        )
+                                    }
                                 })}
                                 { list.user_id == userId &&<div className="flex row center middle">
                                     <div><Button onClick={() => router.push('/list/gift/new?list_id=' + list.id)}>Add Gift</Button></div>

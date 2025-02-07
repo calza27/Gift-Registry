@@ -9,9 +9,9 @@ export default function GiftListObject({ gift, key }) {
   const websiteButtonClicked = () => {
     window.open(getUrlForGift(gift), "_blank")
   }
-
+  const className = `flex row center middle borderedBox borderBottom gift-list-object ${gift.purchased ? 'purchased' : ''}`;
   return (
-    <div className="flex row center middle borderedBox borderBottom">
+    <div className={className}>
       <div style={{
         flexGrow: "0.2",
       }}>
@@ -32,7 +32,8 @@ export default function GiftListObject({ gift, key }) {
         </Link>
       </div>
       <div style={{flexGrow: gift.url ? "1": "2"}}>
-        <p>{priceDollars(gift.price)}</p>
+        {gift.purchased && <p className="purchased">Purchased</p>}
+        <p className="price">{priceDollars(gift.price)}</p>
       </div>
       { gift.url && <div style={{flexGrow: "1"}}>
         <Button onClick={websiteButtonClicked}>Website</Button>

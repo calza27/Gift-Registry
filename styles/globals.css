@@ -203,6 +203,23 @@ a {
   width: 50%;
 }
 
+.gift-list-object.purchased {
+  opacity: 0.5;
+}
+
+.gift-list-object.purchased .price {
+  text-decoration: line-through;
+}
+
+.gift-list-object.purchased .purchased {
+  opacity: 1;
+}
+
+.price.purchased {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
 @media screen and (max-width: 600px) {
   .hide-small {
     display: none;

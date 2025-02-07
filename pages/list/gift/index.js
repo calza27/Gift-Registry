@@ -2,14 +2,13 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation'
 import { getToken, getUserId } from "@/hooks/cookies";
 import GiftImage from "@/components/GiftImage";
-import { getGiftById } from "@/hooks/gift";
+import { getGiftById, purchaseGift, unpurchaseGift } from "@/hooks/gift";
 import { getListById } from "@/hooks/list";
 import priceDollars from "@/utils/price";
 import PageLayout from "@/components/layouts/PageLayout"
 import Button from "@/components/Button";
 import { useRouter } from "next/router";
 import getUrlForGift from "@/utils/url";
-import Link from "next/link";
 
 const Gift = () => {
     const searchParams = useSearchParams()
@@ -76,6 +75,34 @@ const Gift = () => {
     const backToList = () => {
         router.push('/list?list_id=' + list_id);
     }
+    
+    const markPurchased = async () => {
+        try {
+            let token = getToken()
+            const giftReponse = await purchaseGift(token, list_id, gift_id)
+            if (!giftReponse.ok) {
+                throw new Error('Failed to mark gift purchased');
+            }
+            router.reload();
+        } catch (err) {
+            if (err.message) setError(err.message);
+            else setError(JSON.stringify(err));
+        }
+    }
+
+    const unpurchase = async () => {
+        try {
+            let token = getToken()
+            const giftReponse = await unpurchaseGift(token, list_id, gift_id)
+            if (!giftReponse.ok) {
+                throw new Error('Failed to mark gift unpurchased');
+            }
+            router.reload();
+        } catch (err) {
+            if (err.message) setError(err.message);
+            else setError(JSON.stringify(err));
+        }
+    }
 
     if (loading) return (
         <PageLayout title="Loading...">
@@ -105,8 +132,14 @@ const Gift = () => {
                     { gift.image_file_name && <div style={{flexGrow: "0.2"}}>
                         <GiftImage entity={gift} alt={gift.title} />
                     </div> }
-                    <div style={{flexGrow: "10" }}>
-                        <h1>{gift.title}</h1>
+                    <div style={{flexGrow: "10" }} className="flex column">
+                        <div>
+                            <h1>{gift.title}{gift.purchased && ' - PURCHASED'}</h1>
+                        </div>
+                        <div>
+                            {!gift.purchased && <Button onClick={markPurchased}>Mark Purchased</Button>}
+                            {gift.purchased && canEdit && <Button onClick={unpurchase}>Unpurchase</Button>}
+                        </div>
                     </div>
                 </div>
                 <div className="flex column">
@@ -140,7 +173,10 @@ const Gift = () => {
                             <div><b>Price</b></div>
                             <div style={{
                                 padding: "0.5rem",
-                            }}>{priceDollars(gift.price)}</div>
+                            }}>
+                                {gift.purchased && <div className="purchased">Purchased</div>}
+                                <div className={gift.purchased ? 'price purchased' : 'price'}>{priceDollars(gift.price)}</div>
+                            </div>
                         </div>
                     </div>
                     <div style={{
