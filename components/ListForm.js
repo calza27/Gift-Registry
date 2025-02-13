@@ -5,6 +5,7 @@ import { createList, updateListById } from "@/hooks/list";
 import { useRouter } from "next/router";
 import ImageUpload from "./ImageUpload";
 import InputField from "./InputField";
+import TextArea from "./TextArea";
 import InputHelperText from "./InputHelperText";
 import InputLayout from "./layouts/InputLayout";
 import Label from "./Label";
@@ -73,6 +74,7 @@ export default function ListForm({ listData, successAction }) {
                     id: listData?.id,
                     user_id: userId,
                     list_name: listData?.list_name,
+                    description: listData?.description,
                     created_at: listData?.created_at,
                     sharing_id: listData?.sharing_id,
                     image_file_name: listData?.image_file_name,
@@ -105,6 +107,16 @@ export default function ListForm({ listData, successAction }) {
                                 value={values?.list_name}
                             />
                             <InputHelperText isError>{errors?.list_name}</InputHelperText>
+                        </InputLayout>
+                        <InputLayout>
+                            <Label>Description</Label>
+                            <TextArea
+                                name="description"
+                                placeholder="Description"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values?.description}
+                            />
                         </InputLayout>
                         <ImageUpload existingFile={existingImage} fileNameSetter={setNewImageFileName} pendingSetter={setImagePending} />
                         <SubmitButton disabled={imagePending} isSubmitting={isSubmitting} />

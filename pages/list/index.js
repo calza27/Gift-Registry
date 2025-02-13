@@ -11,7 +11,6 @@ import PageLayout from "@/components/layouts/PageLayout"
 import Image from 'next/image';
 import Button from "@/components/Button";
 import GiftImage from "@/components/GiftImage";
-import { deleteListById } from "@/hooks/list";
 
 const List = () => {
     const searchParams = useSearchParams()

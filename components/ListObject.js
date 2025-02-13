@@ -37,6 +37,7 @@ export default function ListObject({ giftList, key }) {
         }}>
             <div className="flex column">
               <div style={{color: "black", fontWeight: "bold"}}>{giftList.list_name}</div>
+              <div style={{color: "black"}}>{giftList.description}</div>
             </div>
         </div>
       </div>
